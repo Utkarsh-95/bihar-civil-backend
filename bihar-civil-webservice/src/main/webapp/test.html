@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleafe.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>High Chart Example - Spring Boot</title>
+<link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+    href="https://code.highcharts.com/css/highcharts.css" />
+<script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+</head>
+<body>
+    <div align="center">
+        <h2>Spring Boot Highcharts Example</h2>
+        <button type="button" onclick="showChart();">Show chart</button>
+    </div>
+    <figure class="highcharts-figure">
+        <div id="container"></div>
+    </figure>
+    <script type="text/javascript">
+    
+    function showChart() {
+        $.ajax({
+            url : "api/v1/getWeightVoltageData", //to be shared
+            type: "POST",
+            data: JSON.stringify({
+            	"imei": "861693039019047", //dynamic
+            	"vehicleNo": null,
+            	"fromDate": null,
+            	"toDate": "2020-04-23" //dynamic
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType   : "json",
+            success : function(result) {
+            	var imei;
+            	var date;
+                var timearr;
+                var countDtls;
+                console.log(result);
+                result.forEach(
+                        function(data) {
+                        	
+                        	drawChart(data);
+                        	
+                        	imei=data.name;
+                        	date=data.date;
+                        	timearr=data.time;
+                        	countDtls=data.data
+                        	console.log(data.data);
+                        });
+                
+                //drawChart(timearr, imei, countDtls);
+            }
+        });
+    }
+    
+        function drawChart(data) {
+             Highcharts.chart('container', {
+                chart : {
+                    type : 'spline',
+                    styledMode : true
+                },
+                title : {
+                    text : 'Voltage(weight) fluctuation day-wise '
+                },
+                xAxis : [ {
+                    title : {
+                        text : data.date
+                    },
+                    categories : data.time
+                } ],
+                yAxis : [ {
+                    className : 'highcharts-color-0',
+                    title : {
+                        text : 'Voltage'
+                    }
+                } ],
+                series : [ {
+                	name : data.imei,
+                    data : data.data
+                } ]
+            }); 
+            
+        }
+    </script>
+</body>
+</html>
