@@ -27,7 +27,7 @@ public class APIController {
 
 	@GetMapping("testAPI/{testString}")
 	public String testAPI(@PathVariable("testString") String testString) {
-		return testString;
+		return "test string api "+testString;
 	}
 	
 	@PostMapping("getWeightVoltageData")
