@@ -1,2 +1,4 @@
 bihar-civil-webservice/bihar-civil-webservice/target/*.war
 bihar-civil-webservice/bihar-civil-webservice/target/*.war.*
+.metadata/*
+.recommenders/*

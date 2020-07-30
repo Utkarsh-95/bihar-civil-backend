@@ -1,7 +1,0 @@
-INDEX VERSION 1.4+C:\sts3.6.9\workspace\bihar-civil-webservice\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-2532776528.index
-2996867230.index
-4244666208.index
-3835642055.index
-242059685.index
-2963704752.index
